@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.8/dist/spectrum.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.8/dist/spectrum.min.css"
+    />
+    <title>Coloring Pad</title>
+  </head>
+  <body>
+    <style>
+      body {
+        margin: 0;
+        background-color: whitesmoke;
+        overflow: hidden;
+      }
+    </style>
+
+    <canvas>Your Browser doesn't support the HTML5 canvas tag</canvas>
+    <style>
+      canvas {
+        cursor: url("./pen.cur"), auto;
+      }
+      #main {
+        position: absolute;
+        left: 1400px;
+        top: 150px;
+      }
+      #clear {
+        position: absolute;
+        top: 450px;
+        left: -40px;
+      }
+      #erase {
+        position: absolute;
+        top: 450px;
+        left: 80px;
+      }
+      #blue {
+        position: absolute;
+        top: 200px;
+        left: -40px;
+        width: 72.79px;
+        height: 47.97px;
+      }
+      #green {
+        position: absolute;
+        top: 200px;
+        left: 40px;
+        width: 72.79px;
+        height: 47.97px;
+      }
+      #red {
+        position: absolute;
+        top: 200px;
+        left: 120px;
+        width: 72.79px;
+        height: 47.97px;
+      }
+      #yellow {
+        position: absolute;
+        top: 275px;
+        left: -40px;
+        width: 72.79px;
+        height: 47.97px;
+      }
+      #orange {
+        position: absolute;
+        top: 275px;
+        left: 40px;
+        width: 72.79px;
+        height: 47.97px;
+        opacity: 0.7;
+        background-color: #fd7e14;
+        border-color: #fd7e14;
+      }
+      #orange:hover {
+        opacity: 1;
+        transition: all ease 0.15s;
+      }
+      #orange:focus {
+        border-color: #fd7e14;
+        box-shadow: 0 0 0 4px rgba(253, 126, 20, 0.5);
+      }
+      #purple {
+        position: absolute;
+        top: 275px;
+        left: 120px;
+        width: 72.79px;
+        height: 47.97px;
+        opacity: 0.7;
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+      }
+      #purple:hover {
+        opacity: 1;
+        transition: all ease 0.3s;
+      }
+      #purple:focus {
+        border-color: #6f42c1;
+        box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.5);
+      }
+      #pink {
+        position: absolute;
+        top: 350px;
+        left: -40px;
+        width: 72.79px;
+        height: 47.97px;
+        opacity: 0.7;
+        background-color: #d63384;
+        border-color: #d63384;
+      }
+      #pink:hover {
+        opacity: 1;
+        transition: all ease 0.3s;
+      }
+      #pink:focus {
+        border-color: #d63384;
+        box-shadow: 0 0 0 4px rgba(214, 51, 132, 0.5);
+      }
+      #brown {
+        position: absolute;
+        top: 350px;
+        left: 120px;
+        width: 72.79px;
+        height: 47.97px;
+        opacity: 0.7;
+        background-color: #964b00;
+        border-color: #964b00;
+      }
+      #brown:hover {
+        opacity: 1;
+        transition: all ease 0.3s;
+      }
+      #brown:focus {
+        border-color: #964b00;
+        box-shadow: 0 0 0 4px rgba(150, 75, 0, 0.5);
+      }
+      #black {
+        position: absolute;
+        top: 350px;
+        left: 40px;
+        width: 72.79px;
+        height: 47.97px;
+      }
+      .material-icons {
+        vertical-align: sub;
+      }
+      #wrapper {
+        position: absolute;
+        top: 100px;
+        left: 47%;
+        font-size: 30px;
+        text-align: center;
+      }
+      .wrapper-color {
+        position: absolute;
+        top: 150px;
+        left: 35%;
+      }
+      .slider {
+        -webkit-appearance: none;
+        transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        height: 15px;
+        width: 150px;
+        border-radius: 5px;
+        background: #a9a9a9;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: 0.2s;
+        transition: opacity 0.2s;
+      }
+
+      .slider:hover {
+        opacity: 1;
+      }
+
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        width: 40px;
+        height: 39px;
+        border: 0;
+        background: url("./slider-icon.png");
+        cursor: pointer;
+      }
+
+      .slider::-moz-range-thumb {
+        transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        width: 25px;
+        height: 25px;
+        border: 0;
+        background: url("./slider-icon.png");
+        cursor: pointer;
+      }
+    </style>
+    <span id="main">
+      <input
+        type="range"
+        min="1"
+        max="10"
+        value="5"
+        class="slider"
+        id="myRange"
+      />
+      <div id="wrapper">5</div>
+      <button type="button" class="btn btn-secondary btn-lg" id="clear">
+        <span class="material-icons"> delete </span>Clear
+      </button>
+      <button type="button" class="btn btn-secondary btn-lg" id="erase">
+        <i class="fas fa-eraser"></i> Erase
+      </button>
+      <div class="wrapper-color">
+        <input id="color-picker" value="white" />
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary btn-lg" id="blue">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-success btn-lg" id="green">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-danger btn-lg" id="red">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-warning btn-lg" id="yellow">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-danger btn-lg" id="orange">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-secondary btn-lg" id="purple">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-danger btn-lg" id="pink">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-dark btn-lg" id="black">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-dark btn-lg" id="brown">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+      </div>
+    </span>
+    <script src="./game.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#color-picker").spectrum({
+          type: "color",
+          showPalette: false,
+          showPaletteOnly: true,
+          hideAfterPaletteSelect: true,
+        });
+      });
+    </script>
+  </body>
+</html>
